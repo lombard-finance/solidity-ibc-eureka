@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  relayer:
+    container_name: relayer
+    hostname: relayer
+    image: "relayer"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./.relayer:/.relayer
+    command:
+      - /usr/local/bin/relayer start --config /.relayer/relayer-config.json
+    networks:
+      - ledger_localnet
+
+networks:
+  ledger_localnet:
+    external: true

@@ -2,13 +2,13 @@ package utils
 
 import (
 	"fmt"
+	"google.golang.org/grpc/credentials/insecure"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 func GetTLSGRPC(addr string) (*grpc.ClientConn, error) {
-	creds := credentials.NewTLS(nil)
+	creds := insecure.NewCredentials()
 
 	// Establish a secure connection with the gRPC server
 	conn, err := grpc.Dial(addr, grpc.

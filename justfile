@@ -220,3 +220,59 @@ generate-fixtures-sp1-ics07: install-operator
 relayer-proto-gen:
     @echo "Generating Protobuf files for relayer"
     buf generate --template buf.gen.yaml
+
+
+###############################################################################
+###                            LEDGER LOCALNET                              ###
+###############################################################################
+
+# Build and start hardhat eth node
+eth-node-start:
+  @echo "Starting node"
+  docker build -t eth-node programs/eth-node
+  docker compose -f ./programs/eth-node/docker-compose.yml up -d
+
+# Removes hardhat node with its state
+eth-node-stop:
+  docker compose -f ./programs/eth-node/docker-compose.yml down
+
+# Generate genesis file for ledger localnet
+generate-genesis:
+  @echo "Generating the genesis file..."
+  rm -f scripts/genesis.json
+  docker run --rm --privileged -v ./scripts:/scripts --network ledger_localnet relayer \
+  "RUST_LOG=info TENDERMINT_RPC_URL=http://node0:26657 operator genesis -o /scripts/genesis.json"
+
+# Deploy the SP1ICS07Tendermint contract to the local hardhat node
+# Then generate relayer config using contracts addresses and set ledger faucet as signer
+deploy-bridge:
+  @echo "Deploying the SP1ICS07Tendermint contract"
+  forge install
+  E2E_FAUCET_ADDRESS=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 \
+  VERIFIER=mock \
+  ETHERSCAN_API_KEY= \
+  forge script scripts/E2ETestDeployLocalnet.s.sol \
+    --rpc-url http://0.0.0.0:8545 \
+    --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
+    --broadcast
+  rm -f .relayer/relayer-config.json
+  rm -f scripts/faucet.json
+  docker cp node0:/root/.ledger/faucet.json scripts/faucet.json
+  node scripts/relayer-config.js
+
+# Build the relayer docker image
+# Image also includes operator binary for genesis generation
+relayer-build:
+  docker build -t relayer . -f programs/relayer/Dockerfile
+
+# Start relayer service
+relayer-start:
+  @echo "Starting relayer service"
+  docker compose -f ./programs/relayer/docker-compose.yml up -d
+
+relayer-stop:
+  @echo "Removing relayer service"
+  docker compose -f ./programs/relayer/docker-compose.yml down
+
+eureka-build:
+  go build -C ./e2e/interchaintestv8/cmd -o $PWD/eureka-cli

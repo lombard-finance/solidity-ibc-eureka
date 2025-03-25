@@ -56,7 +56,7 @@ import (
 // BroadcastMessages broadcasts the provided messages to the given chain and signs them on behalf of the provided user.
 // Once the broadcast response is returned, we wait for two blocks to be created on chain.
 func (s *TestSuite) BroadcastMessages(ctx context.Context, chain *cosmos.CosmosChain, user ibc.Wallet, gas uint64, msgs ...sdk.Msg) (*sdk.TxResponse, error) {
-	sdk.GetConfig().SetBech32PrefixForAccount(chain.Config().Bech32Prefix, chain.Config().Bech32Prefix+sdk.PrefixPublic)
+	sdk.GetConfig().SetBech32PrefixForAccount("lom", "lompub")
 	sdk.GetConfig().SetBech32PrefixForValidator(
 		chain.Config().Bech32Prefix+sdk.PrefixValidator+sdk.PrefixOperator,
 		chain.Config().Bech32Prefix+sdk.PrefixValidator+sdk.PrefixOperator+sdk.PrefixPublic,

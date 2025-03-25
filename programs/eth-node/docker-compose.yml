@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  eth-node:
+    image: "eth-node"
+    container_name: eth-node
+    ports:
+      - "8545:8545"
+    networks:
+      - ledger_localnet
+
+networks:
+  ledger_localnet:
+    external: true

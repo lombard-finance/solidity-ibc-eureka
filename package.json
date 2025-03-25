@@ -12,10 +12,11 @@
     "@uniswap/permit2": "github:Uniswap/permit2"
   },
   "devDependencies": {
-    "sp1-contracts": "github:succinctlabs/sp1-contracts#v4.0.0",
+    "@cosmjs/stargate": "^0.33.1",
+    "@defi-wonderland/natspec-smells": "^1.1.6",
     "forge-std": "github:foundry-rs/forge-std#v1.9.6",
     "solhint": "^5.0.5",
-    "@defi-wonderland/natspec-smells": "^1.1.6"
+    "sp1-contracts": "github:succinctlabs/sp1-contracts#v4.0.0"
   },
   "keywords": [
     "blockchain",

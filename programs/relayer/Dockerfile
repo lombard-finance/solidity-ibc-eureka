@@ -6,9 +6,16 @@ RUN apt update && apt install -y just protobuf-compiler
 
 WORKDIR /solidity-ibc-eureka/
 COPY . .
-RUN just build-relayer
 
-FROM gcr.io/distroless/base-debian11:debug
+RUN cargo build --release --locked
+
+FROM ubuntu:24.04
+RUN apt-get update && apt-get install -y wget curl nano
+
 WORKDIR /usr/local/bin
 COPY --from=BUILD /solidity-ibc-eureka/target/release/relayer /usr/local/bin/relayer
-ENTRYPOINT [ "/usr/local/bin/relayer", "--config", "/usr/local/relayer/relayer.json"]
+COPY --from=BUILD /solidity-ibc-eureka/target/release/operator /usr/local/bin/operator
+
+EXPOSE 3000
+
+ENTRYPOINT ["/bin/bash", "-c"]

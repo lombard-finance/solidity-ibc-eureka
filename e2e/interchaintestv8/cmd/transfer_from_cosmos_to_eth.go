@@ -76,6 +76,7 @@ func TransferFromCosmos() *cobra.Command {
 			}
 
 			// Set up everything needed to send the transfer
+			sdk.GetConfig().SetBech32PrefixForAccount(Bech32PrefixAccAddr, Bech32PrefixAccPub)
 			cosmosAddress := sdk.AccAddress(cosmosPrivateKey.PubKey().Address())
 
 			timeout := uint64(time.Now().Add(1 * time.Hour).Unix())
@@ -125,7 +126,7 @@ func TransferFromCosmos() *cobra.Command {
 			txBuilder := app.TxConfig().NewTxBuilder()
 			txBuilder.SetGasLimit(200000)
 			txBuilder.SetMsgs(msg)
-			txBuilder.SetFeeAmount(sdk.NewCoins(sdk.NewInt64Coin("uatom", 200000)))
+			txBuilder.SetFeeAmount(sdk.NewCoins(sdk.NewInt64Coin(FeeDenom, 20000000)))
 
 			sigV2 := signing.SignatureV2{
 				PubKey: cosmosPrivateKey.PubKey(),

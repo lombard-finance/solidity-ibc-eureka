@@ -1,0 +1,33 @@
+{
+  "server": {
+    "log_level": "debug",
+    "address": "0.0.0.0",
+    "port": 3000
+  },
+  "modules": [
+    {
+      "name": "cosmos_to_eth",
+      "src_chain": "localnet-1",
+      "dst_chain": "11155111",
+      "config": {
+        "tm_rpc_url": "http://node0:26657",
+        "ics26_address": "",
+        "eth_rpc_url": "http://eth-node:8545",
+        "sp1_config": "mock"
+      }
+    },
+    {
+      "name": "eth_to_cosmos",
+      "src_chain": "11155111",
+      "dst_chain": "localnet-1",
+      "config": {
+        "mock": true,
+        "tm_rpc_url": "http://node0:26657",
+        "ics26_address": "",
+        "eth_rpc_url": "http://eth-node:8545",
+        "eth_beacon_api_url": "",
+        "signer_address": "PUT-LEDGER-FAUCET-ADDRESS-HERE"
+      }
+    }
+  ]
+}

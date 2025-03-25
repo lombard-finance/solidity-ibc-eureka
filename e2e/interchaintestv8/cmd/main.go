@@ -7,26 +7,30 @@ import (
 )
 
 const (
+	FeeDenom            = "ulom"
+	Bech32PrefixAccAddr = "lom"
+	Bech32PrefixAccPub  = "lompub"
+
 	FlagEthRPC    = "eth-rpc"
-	DefaultEthRPC = "https://ethereum-sepolia-rpc.publicnode.com"
+	DefaultEthRPC = "http://localhost:8545"
 
 	FlagIcs26Address    = "ics26-address"
-	DefaultIcs26Address = "0x718AbdD2f29A6aC1a34A3e20Dae378B5d3d2B0E9"
+	DefaultIcs26Address = "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853"
 
 	FlagIcs20Address    = "ics20-address"
-	DefaultIcs20Address = "0xE80DC519EE86146057B9dBEfBa900Edd7a2385e4"
+	DefaultIcs20Address = "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6"
 
 	FlagErc20Address    = "erc20-address"
-	DefaultErc20Address = "0xA4ff49eb6E2Ea77d7D8091f1501385078642603f"
+	DefaultErc20Address = "0xb7f8bc63bbcad18155201308c8f3540b07f84f5e"
 
 	FlagCosmosRPC    = "cosmos-rpc"
-	DefaultCosmosRPC = "https://eureka-devnet-02-node-01-rpc.dev.skip.build:443"
+	DefaultCosmosRPC = "http://localhost:26657"
 
 	FlagCosmosGRPC    = "cosmos-grpc"
-	DefaultCosmosGRPC = "eureka-devnet-02-node-01-grpc.dev.skip.build:443"
+	DefaultCosmosGRPC = "localhost:9090"
 
 	FlagCosmosChainID    = "cosmos-chain-id"
-	DefaultCosmosChainID = "eureka-hub-dev-5"
+	DefaultCosmosChainID = "localnet-1"
 
 	FlagEthChainID    = "ethereum-chain-id"
 	DefaultEthChainID = "11155111"
@@ -36,13 +40,13 @@ const (
 	FlagEthClientIDOnCosmos = "client-id-on-cosmos"
 
 	// TODO: Add the non-mock versions of these
-	MockTendermintClientID = "hub-devnet-sp1-g16-0"
-	MockEthClientID        = "08-wasm-4"
+	MockTendermintClientID = "cosmoshub-1"
+	MockEthClientID        = "08-wasm-0"
 
 	EnvEthPrivateKey    = "ETH_PRIVATE_KEY"
 	EnvCosmosPrivateKey = "COSMOS_PRIVATE_KEY"
 
-	RelayerURL = "eureka-devnet-02-relayer-01.dev.skip.build:443"
+	RelayerURL = "localhost:3000"
 
 	EnvRelayerWallet = "RELAYER_WALLET"
 
