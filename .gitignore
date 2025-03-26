@@ -4,6 +4,7 @@ coverage
 node_modules
 out
 ibc_08-wasm_client_data/
+.relayer/
 
 # files
 *.env
@@ -15,6 +16,7 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 soljson-latest.js
+eureka-cli
 
 # broadcasts
 !broadcast
@@ -33,5 +35,4 @@ bacon.toml
 
 # Config files and test artifacts
 programs/relayer/config.json
-scripts/genesis.json
-scripts/deploymentConfig.json
+scripts/**.json
