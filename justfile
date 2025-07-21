@@ -250,11 +250,11 @@ deploy-bridge:
   forge install
   E2E_FAUCET_ADDRESS=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 \
   VERIFIER=mock \
-  ETHERSCAN_API_KEY= \
   forge script scripts/E2ETestDeployLocalnet.s.sol \
     --rpc-url http://0.0.0.0:8545 \
     --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
-    --broadcast
+    --broadcast \
+    -v
   rm -f .relayer/relayer-config.json
   rm -f scripts/faucet.json
   docker cp node0:/root/.ledger/faucet.json scripts/faucet.json
@@ -263,7 +263,7 @@ deploy-bridge:
 # Build the relayer docker image
 # Image also includes operator binary for genesis generation
 relayer-build:
-  docker build -t relayer . -f programs/relayer/Dockerfile
+  docker build --progress=plain -t relayer . -f programs/relayer/Dockerfile
 
 # Start relayer service
 relayer-start:

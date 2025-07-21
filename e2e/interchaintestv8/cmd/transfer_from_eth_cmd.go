@@ -105,7 +105,7 @@ func TransferFromEth() *cobra.Command {
 				Memo:             "",
 			}
 			if transferWithCallbacksMemo {
-				sendTransferMsg.Memo = `{"dest_callback": {"address":"cosmos1nc5tatafv6eyq7llkr2gv50ff9e22mnf70qgjlv737ktmt4eswrqez7la9"}}`
+				sendTransferMsg.Memo = `{"dest_callback": {"address":"lom14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s9fver0"}}`
 			}
 			txOpts = utils.GetTransactOpts(ctx, ethClient, ethChainID, ethPrivKey)
 			txOpts.GasPrice = nil
